@@ -1,16 +1,18 @@
+import { NewRouteForm } from './NewRouteForm';
+
 export async function searchDirections(source: string, destination: string) {
   const [sourceResponse, destinationResponse] = await Promise.all([
     fetch(`http://localhost:8008/places?text=${source}`, {
-      // cache: "force-cache", //default
+      // cache: 'force-cache', //default
       // next: {
       //   revalidate: 1 * 60 * 60 * 24, // 1 dia
-      // }
+      // },
     }),
     fetch(`http://localhost:8008/places?text=${destination}`, {
-      // cache: "force-cache", //default
+      // cache: 'force-cache', //default
       // next: {
       //   revalidate: 1 * 60 * 60 * 24, // 1 dia
-      // }
+      // },
     }),
   ]);
 
@@ -33,13 +35,13 @@ export async function searchDirections(source: string, destination: string) {
   const placeDestinationId = destinationData.candidates[0].place_id;
 
   const directionsResponse = await fetch(
-    `http://localhost:8008/directions?originId=${placeSourceId}&destinationId=${placeDestinationId}`,
-    {
-      // cache: "force-cache", //default
-      // next: {
-      //   revalidate: 1 * 60 * 60 * 24, // 1 dia
-      // },
-    }
+    `http://localhost:8008/directions?originId=${placeSourceId}&destinationId=${placeDestinationId}`
+    // {
+    //   cache: 'force-cache', //default
+    //   next: {
+    //     revalidate: 1 * 60 * 60 * 24, // 1 dia
+    //   },
+    // }
   );
 
   if (!directionsResponse.ok) {
@@ -137,7 +139,7 @@ export async function NewRoutePage({
                 {directionsData.routes[0].legs[0].duration.text}
               </li>
             </ul>
-            {/* <NewRouteForm>
+            <NewRouteForm>
               {placeSourceId && (
                 <input
                   type="hidden"
@@ -157,7 +159,7 @@ export async function NewRoutePage({
                 className="bg-main text-primary font-bold p-2 rounded mt-4">
                 Adicionar rota
               </button>
-            </NewRouteForm> */}
+            </NewRouteForm>
           </div>
         )}
       </div>
