@@ -9,7 +9,6 @@ export async function getRoutes() {
     },
   });
   //revalidate por demanda
-  console.log('response', response.body);
   return response.json();
 }
 
